@@ -40,8 +40,15 @@ def consultar_boletim():
             print(f"{d}: notas = {notas}, média = {media:.2f}")
     else:
         print("Aluno não encontrado")
-
-
+## 
+'''def Consultar_aluno_nome():
+    nome_consulta = input("Digite qual nome você quer ?")
+    if nome_consulta in alunos[cpf]:
+        alunos[cpf]=  {
+        "nome": nome,
+        "idade": idade,
+        "serie": serie,
+        "disciplinas": {}}'''
 
 
 def salvar_dados():

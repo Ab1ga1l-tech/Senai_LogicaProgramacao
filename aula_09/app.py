@@ -1,9 +1,9 @@
 # nove itens no cadastro 
 
-from meu_cadastro import*
+from parte1 import*
 
 def menu():
-    carregar_dados()
+    
     while True:
         print("1 - Cadastrar aluno")
         print("2 - Adicionar disciplina")
@@ -19,24 +19,10 @@ def menu():
         if opcao == "1":
             cadastrar_aluno()
         elif opcao == "2":
-            adicionar_disciplina()
+            listar_alunos()    
         elif opcao == "3":
-            adicionar_nota()
-        elif opcao == "4":
-            consultar_boletim()
-        elif opcao == "5":
-            Consultar_aluno_nome()
-        elif opcao == "6":
-            Editar_dados_aluno()
-        elif opcao == "7":
-            Excluir_aluno()
-        elif opcao == "8":
-            Excluir_disciplina()
-            Excluir_disciplina()
-        elif opcao == "9":
             break
         
 
 if __name__ == "__main__":
     menu()
-
