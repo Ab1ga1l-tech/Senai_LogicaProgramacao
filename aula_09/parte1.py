@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS alunos (
     email TEXT NOT NULL,
     idade INTEGER NOT NULL,
     serie INTEGER NOT NULL,
-    nota INTEGER NOT NULL
+    nota FLOAT NOT NULL
 )
 """)
 conn.commit()
@@ -22,42 +22,43 @@ def cadastrar_aluno():
     cpf = input("CPF (somente números): ").strip()
     cursor.execute("SELECT cpf FROM alunos WHERE cpf = ?", (cpf,))
     if cursor.fetchone():
-        print(" CPF já cadastrado.")
+        print("CPF já cadastrado.")
         return
 
     nome = input("Nome: ").strip()
     email = input("Email: ").strip()
     idade = int(input("Idade: "))
     serie = int(input("Série: "))
-    nota = int(input("digite sua nota: "))
+    nota = int(input("Digite sua nota: "))
 
-    cursor.execute("INSERT INTO alunos VALUES (?, ?, ?, ?, ?)", (cpf, nome, email, idade, serie))
+    cursor.execute("INSERT INTO alunos (cpf, nome, email, idade, serie, nota) VALUES (?, ?, ?, ?, ?, ?)", (cpf, nome, email, idade, serie, nota))
     conn.commit()
-    print(" Aluno cadastrado com sucesso.")
+    print("Aluno cadastrado com sucesso.")
 
 # Função para listar todos os alunos
 def listar_alunos():
     cursor.execute("SELECT * FROM alunos")
     alunos = cursor.fetchall()
-    print("\n Lista de alunos:")
+    print("\nLista de alunos:")
     for a in alunos:
-        print(f"CPF: {a[0]}, Nome: {a[1]}, Email: {a[2]}, Idade: {a[3]}, Série: {a[4]}")
+        print(f"CPF: {a[0]}, Nome: {a[1]}, Email: {a[2]}, Idade: {a[3]}, Série: {a[4]}, Nota: {a[5]}")
 
-# Menu simples para testar
-if __name__ == "_main_":
- def menu():
-    while True:
-        print("\n1. Cadastrar aluno\n2. Listar alunos\n3. Sair")
-        opcao = input("Escolha: ")
+def Adicionar_nota():
+    cpf = input("Digite o seu cpf para adicionar uma nota").strip()
+    cursor.execute("SELECT * FROM alunos WHERE cpf = ? ", (cpf,))
+    aluno = cursor.fetchone()
+    if not aluno:
+     print("inválido")
+     return
+     nota_atual = aluno[5]
+     nota = float(input(f"Qual nota deseja inserir em {aluno[0]} ? "))
+     media = (nota + nota_atual)/2 
+     cursor.execute("UPDATE alunos SET nota = ?  WHERE cpf= ?",(media,cpf))
+     conn.commit()
+     print(f"foi adicionada a nota {aluno[5]} em {aluno[1]}")
+   
 
-        if opcao == "1":
-            cadastrar_aluno()
-        elif opcao == "2":
-            listar_alunos()
-        elif opcao == "3":
-            break
-        else:
-            print(" Opção inválida.")
+    
 
-# Fecha a conexão ao sair
-conn.close()
+def fechar_conexao():
+    conn.close()
