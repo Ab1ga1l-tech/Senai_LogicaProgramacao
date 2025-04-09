@@ -58,15 +58,47 @@ def Adicionar_nota():
     print(f"foi adicionada a nota {aluno[5]} em {aluno[1]} , nova media {media}")
    
 def Consultar_boletim():
-    cpf = input("Digite o seu cpf para adicionar uma nota").strip()
-    cursor.execute("SELECT FROM alunos")
-    aluno = cursor.fetchall()
+    cpf = input("Digite o seu cpf para printar uma nota").strip()
+    cursor.execute("SELECT * FROM alunos WHERE cpf = ?", (cpf,))
+    aluno = cursor.fetchone()  # Retorna apenas o primeiro aluno que corresponder ao CPF fornecido
     if not aluno:
         print(f"{cpf} inválido")
         return
-    print(f"A nota do aluno{aluno[1]} é {aluno[5]}")
+    print(f"A nota do aluno {aluno[1]} é {aluno[5]}")
     conn.commit()
     
-
+def Consultar_aluno_nome():
+    nome = input("Digite o seu nome para buscar: ")
+    cursor.execute("SELECT* FROM alunos WHERE nome = ?",(nome))
+    aluno = cursor.fetchall()
+    if not aluno:
+        print("nome não existente")
+        return
+    print(f"CPF: {aluno[0]}, Nome: {aluno[1]}, Email: {aluno[2]}, Idade: {aluno[3]}, Série: {aluno[4]}, Nota: {aluno[5]}")
+    conn.commit
+def Editar_dados():
+    cpf = input("Digite o cpf para editar os dados")
+    cursor.execute("SELECT*FROM alunos WHERE cpf= ?",(cpf))
+    aluno = cursor.fetchone()
+    if not aluno:
+        print("CPF inválido ")
+        return
+    print(f"Vamos editar esses dados CPF: {aluno[0]}, Nome: {aluno[1]}, \n Email: {aluno[2]}, Idade: {aluno[3]}, Série: {aluno[4]}, Nota: {aluno[5]}")
+    conn.commit()
+def   Exclui_aluno():
+    cpf = ("Digite o cpf").strip()
+    cursor.execute("SELECT* FROM alunos WHERE CPF = ? ",(cpf,))
+    aluno = cursor.fetchone()
+    if not aluno:
+        print("CPF inválido")
+        return
+    print(f"{aluno[1]} foi deletado")
+    cursor.execute("DELETE FROM alunos WHERE cpf = ? ",(cpf,)) 
+    cursor.fetchone()
+    conn.commit()
+def Exclui_disciplina():
+    print("")
+cursor.execute("ALTER TABLE alunos ADD COLUMN Disciplinas TEXT")
+conn.commit()
 def fechar_conexao():
     conn.close()
