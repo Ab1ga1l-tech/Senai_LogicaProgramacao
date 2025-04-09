@@ -22,14 +22,9 @@ def menu():
         elif opcao == "3":
             Adicionar_nota()
         elif opcao == "4":
-            print("Função ainda não implementada.")
+            Consultar_boletim()
         else:
             print("Número inválido :( tente novamente")
-
+            break
     # Verifica se o aluno existe
     
-        
-
-if __name__ == "__main__":
-    menu()
-
