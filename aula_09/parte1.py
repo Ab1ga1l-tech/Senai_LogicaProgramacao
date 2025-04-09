@@ -59,8 +59,13 @@ def Adicionar_nota():
    
 def Consultar_boletim():
     cpf = input("Digite o seu cpf para adicionar uma nota").strip()
-    cursor.execute
-
+    cursor.execute("SELECT FROM alunos")
+    aluno = cursor.fetchall()
+    if not aluno:
+        print(f"{cpf} inválido")
+        return
+    print(f"A nota do aluno{aluno[1]} é {aluno[5]}")
+    conn.commit()
     
 
 def fechar_conexao():
