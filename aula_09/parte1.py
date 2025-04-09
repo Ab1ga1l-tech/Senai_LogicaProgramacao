@@ -50,13 +50,16 @@ def Adicionar_nota():
     if not aluno:
      print("inválido")
      return
-     nota_atual = aluno[5]
-     nota = float(input(f"Qual nota deseja inserir em {aluno[0]} ? "))
-     media = (nota + nota_atual)/2 
-     cursor.execute("UPDATE alunos SET nota = ?  WHERE cpf= ?",(media,cpf))
-     conn.commit()
-     print(f"foi adicionada a nota {aluno[5]} em {aluno[1]}")
+    nota_atual = aluno[5]
+    nota = float(input(f"Qual nota deseja inserir em {aluno[1]} ? "))
+    media = (nota + nota_atual)/2 
+    cursor.execute("UPDATE alunos SET nota = ?  WHERE cpf= ?",(media,cpf))
+    conn.commit()
+    print(f"foi adicionada a nota {aluno[5]} em {aluno[1]} , nova media {media}")
    
+def Consultar_boletim():
+    cpf = input("Digite o seu cpf para adicionar uma nota").strip()
+    cursor.execute
 
     
 
