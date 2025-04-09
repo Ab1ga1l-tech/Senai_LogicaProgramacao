@@ -1,12 +1,11 @@
-# nove itens no cadastro 
-
-from parte1 import* 
+from cadastro import* 
 
 def menu():
     
     while True:
+        print("\n===== MENU =====")
         print("1 - Cadastrar aluno")
-        print("2- Listar Alunos ")
+        print("2 - Listar alunos")
         print("3 - Adicionar nota")
         print("4 - Consultar boletim")
         print("5 - Consultar aluno pelo nome")
@@ -14,7 +13,6 @@ def menu():
         print("7 - Excluir aluno")
         print("8 - Excluir disciplina")
         print("9 - Sair")
-        print("2 - Adicionar disciplina")
 
         opcao = input("Escolha: ")
         if opcao == "1":
@@ -24,7 +22,7 @@ def menu():
         elif opcao == "3":
             Adicionar_nota()
         elif opcao == "4":
-            print()
+            print("Função ainda não implementada.")
         else:
             print("Número inválido :( tente novamente")
 
@@ -34,3 +32,4 @@ def menu():
 
 if __name__ == "__main__":
     menu()
+
