@@ -1,4 +1,4 @@
-from cadastro import* 
+from cadastro import *
 
 def menu():
     
