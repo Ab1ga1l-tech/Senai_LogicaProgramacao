@@ -94,7 +94,7 @@ def Editar_dados():
                    (nome, email, int(idade), int(serie), float(nota), cpf))
     conn.commit()
 def   Exclui_aluno():
-    cpf = ("Digite o cpf").strip()
+    cpf =input("Digite o cpf").strip()
     cursor.execute("SELECT* FROM alunos WHERE CPF = ? ",(cpf,))
     aluno = cursor.fetchone()
     if not aluno:
