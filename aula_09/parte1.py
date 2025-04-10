@@ -29,7 +29,7 @@ def cadastrar_aluno():
     email = input("Email: ").strip()
     idade = int(input("Idade: "))
     serie = int(input("Série: "))
-    nota = int(input("Digite sua nota: "))
+    nota = float(input("Digite sua nota: "))
 
     cursor.execute("INSERT INTO alunos (cpf, nome, email, idade, serie, nota) VALUES (?, ?, ?, ?, ?, ?)", (cpf, nome, email, idade, serie, nota))
     conn.commit()
@@ -74,6 +74,7 @@ def Consultar_aluno_nome():
     if not aluno:
         print("nome não existente")
         return
+    for aluno in alunos:
     print(f"CPF: {aluno[0]}, Nome: {aluno[1]}, Email: {aluno[2]}, Idade: {aluno[3]}, Série: {aluno[4]}, Nota: {aluno[5]}")
     conn.commit
 def Editar_dados():
@@ -84,6 +85,13 @@ def Editar_dados():
         print("CPF inválido ")
         return
     print(f"Vamos editar esses dados CPF: {aluno[0]}, Nome: {aluno[1]}, \n Email: {aluno[2]}, Idade: {aluno[3]}, Série: {aluno[4]}, Nota: {aluno[5]}")
+    nome = input("Nome: ").strip()
+    email = input("Email: ").strip()
+    idade = int(input("Idade: "))
+    serie = int(input("Série: "))
+    nota = float(input("Digite sua nota: "))
+    cursor.execute("UPDATE FROM alunos SET nome = ?, , email = ?, idade = ?, serie = ?, nota = ? WHERE cpf = ?",
+                   (nome, email, int(idade), int(serie), float(nota), cpf))
     conn.commit()
 def   Exclui_aluno():
     cpf = ("Digite o cpf").strip()
