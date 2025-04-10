@@ -13,9 +13,11 @@ CREATE TABLE IF NOT EXISTS alunos (
     idade INTEGER NOT NULL,
     serie INTEGER NOT NULL,
     nota FLOAT NOT NULL
+   
 )
 """)
 conn.commit()
+
 
 # Função para cadastrar aluno
 def cadastrar_aluno():
@@ -48,8 +50,8 @@ def Adicionar_nota():
     cursor.execute("SELECT * FROM alunos WHERE cpf = ? ", (cpf,))
     aluno = cursor.fetchone()
     if not aluno:
-     print("inválido")
-     return
+      print("inválido")
+      return
     nota_atual = aluno[5]
     nota = float(input(f"Qual nota deseja inserir em {aluno[1]} ? "))
     media = (nota + nota_atual)/2 
@@ -74,9 +76,10 @@ def Consultar_aluno_nome():
     if not aluno:
         print("nome não existente")
         return
-    for aluno in alunos:
-    print(f"CPF: {aluno[0]}, Nome: {aluno[1]}, Email: {aluno[2]}, Idade: {aluno[3]}, Série: {aluno[4]}, Nota: {aluno[5]}")
-    conn.commit
+    for a in aluno:
+        print(f"CPF: {a[0]}, Nome: {a[1]}, Email: {a[2]}, Idade: {a[3]}, Série: {a[4]}, Nota: {a[5]}")
+       
+    #conn.commit()
 def Editar_dados():
     cpf = input("Digite o cpf para editar os dados")
     cursor.execute("SELECT*FROM alunos WHERE cpf= ?",(cpf))
@@ -106,7 +109,6 @@ def   Exclui_aluno():
     conn.commit()
 def Exclui_disciplina():
     print("")
-cursor.execute("ALTER TABLE alunos ADD COLUMN Disciplinas TEXT")
-conn.commit()
+
 def fechar_conexao():
     conn.close()
