@@ -82,7 +82,7 @@ def Consultar_aluno_nome():
     #conn.commit()
 def Editar_dados():
     cpf = input("Digite o cpf para editar os dados")
-    cursor.execute("SELECT*FROM alunos WHERE cpf= ?",(cpf))
+    cursor.execute("SELECT*FROM alunos WHERE cpf= ?",(cpf,))
     aluno = cursor.fetchone()
     if not aluno:
         print("CPF inválido ")
@@ -93,8 +93,9 @@ def Editar_dados():
     idade = int(input("Idade: "))
     serie = int(input("Série: "))
     nota = float(input("Digite sua nota: "))
-    cursor.execute("UPDATE FROM alunos SET nome = ?, , email = ?, idade = ?, serie = ?, nota = ? WHERE cpf = ?",
-                   (nome, email, int(idade), int(serie), float(nota), cpf))
+    cpf = input("Digite o cpf para editar os dados")
+
+    cursor.execute("UPDATE alunos SET nome = ?, email = ?, idade = ?, serie = ?, nota = ? WHERE cpf = ?", (nome, email, idade, serie, nota, cpf))
     conn.commit()
 def   Exclui_aluno():
     cpf =input("Digite o cpf").strip()
