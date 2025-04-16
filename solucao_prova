@@ -1,0 +1,70 @@
+# Solução – Análise de Vendas com Verificação de Preço + Mais/Menos Vendido (Corrigido)
+
+frutas = ["banana", "maçã", "melancia", "abacaxi"]
+cereais = ["aveia", "granola", "milho", "trigo", "linhaça"]
+
+precos = {
+    "banana": 2.00, "maçã": 2.50, "melancia": 7.00, "abacaxi": 5.50,
+    "aveia": 4.00, "granola": 5.50, "milho": 3.80, "trigo": 4.50, "linhaça": 6.00
+}
+
+vendas = [
+    ["banana", 5, 2.00],
+    ["maçã", 8, 2.50],
+    ["melancia", 4, 7.00],
+    ["abacaxi", 4, 5.50],
+    ["aveia", 6, 4.00],
+    ["granola", 8, 5.50],
+    ["milho", 4, 3.80],
+    ["trigo", 7, 4.50],
+    ["linhaça", 5, 6.00],
+    ["maçã", 1, 2.00],        # abaixo do preço
+    ["milho", 1, 4.50]        # acima do preço
+]
+
+resumo = {}
+total_geral = 0
+total_frutas = 0
+total_cereais = 0
+
+# Consolidar dados
+for produto, qtd, valor_vendido in vendas:
+    total_item = qtd * valor_vendido
+    valor_real = precos[produto]
+
+    if produto not in resumo:
+        resumo[produto] = {
+            "quantidade": 0,
+            "total_vendido": 0
+        }
+
+    resumo[produto]["quantidade"] += qtd
+    resumo[produto]["total_vendido"] += total_item
+
+    total_geral += total_item
+
+    if produto in frutas:
+        total_frutas += total_item
+    elif produto in cereais:
+        total_cereais += total_item
+
+# Determinar mais e menos vendidos corretamente
+maior_qtd = max(d["quantidade"] for d in resumo.values())
+menor_qtd = min(d["quantidade"] for d in resumo.values())
+
+mais_vendidos = [p for p, d in resumo.items() if d["quantidade"] == maior_qtd]
+menos_vendidos = [p for p, d in resumo.items() if d["quantidade"] == menor_qtd]
+
+# Relatório
+print("=== RELATÓRIO DE VENDAS ===")
+for produto, dados in resumo.items():
+    print(f"\nProduto: {produto}")
+    print(f"  Quantidade vendida: {dados['quantidade']}")
+    
+# Totais finais
+print("\n=== RESUMO FINAL ===")
+print(f"💰 Total geral: R$ {total_geral:.2f}")
+print(f"🍎 Total em frutas: R$ {total_frutas:.2f}")
+print(f"🌾 Total em cereais: R$ {total_cereais:.2f}")
+print(f"📈 Mais vendido(s): {', '.join(mais_vendidos)} ({maior_qtd} unidades)")
+print(f"📉 Menos vendido(s): {', '.join(menos_vendidos)} ({menor_qtd} unidades)")
