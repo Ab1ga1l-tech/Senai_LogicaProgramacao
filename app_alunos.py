@@ -1,17 +1,74 @@
 import tkinter as tk 
 from  datetime import datetime
 from tkinter import messagebox
-from  funções import*
+from  funçoes import*
 
 def cadastrar():
     cpf = cpf_entry.get()
     email = email_entry.get()
     nome = nome_entry.get()
     nascimento = nasc_entry.get()
+    serie = serie_entry.get()
+    if not cpf or not email or not nascimento or not nome:
+        messagebox.showwarning("Você não preencheu todos os itens do cadastro")
+        return
+    if not validar_cpf(cpf):
+        messagebox.showerror("O cpf está inválido ")
+        return
     
+    if not validar_email(email):
+        messagebox.showerror("O cpf está inválido ")
+        return 
     
+    try:
+        datetime.strptime(nascimento, "%d/%m/%Y")
+        serie_int = int(serie)
+    except:
+        messagebox.showerror("Erro", "Data deve estar no formato DD/MM/AAAA e Série deve ser número.")
+        return
+    sucesso = inserir_aluno(cpf, nome, nascimento, serie_int, email)
+    if sucesso:
+        messagebox.showinfo("Sucesso", "Aluno cadastrado com sucesso!")
+        limpar_campos()
+    else:
+        messagebox.showerror("Erro", "CPF já cadastrado!")
+    
+def consultar():
+        cpf = cpf_entry.get()
+        if not validar_cpf:
+            messagebox.showerror("O cpf está inválido ")
+            return
+        aluno = consultar_aluno(cpf)
+        if aluno:
+            email_entry.delete(0, tk.END)
+            email_entry.insert(0, aluno[1])
+            nome_entry.delete(0, tk.END)
+            nome_entry.insert(0, aluno[2])
+            nasc_entry.delete(0, tk.END)
+            nasc_entry.insert(0, aluno[3])
+            serie_entry.delete(0, tk.END)
+            serie_entry.insert(0, aluno[4])
+            
+        else:
+           messagebox.showinfo("Consulta", "Aluno não encontrado.")
+
+def limpar_campos():
+    cpf_entry.delete(0, tk.END)
+    nome_entry.delete(0, tk.END)
+    nasc_entry.delete(0, tk.END)
+    serie_entry.delete(0, tk.END)
+    email_entry.delete(0, tk.END)
 #fazendo a interface
 janela = tk.Tk()
+
+def listar():
+    alunos = listar_todos()
+    texto = tk.Text(janela, width=70, height=20)
+    texto.grid(row=7, column=0,columnspan=2, sticky="e", padx=5, pady=5)
+    for a in alunos:
+        texto.insert(tk.END, f"""CPF: {a[0]}, Nome: {a[1]}, Nasc: {a[2]}, Série: {a[3]}, Email: {a[4]}""")
+
+
 
 #campos
 tk.Label(janela, text="CPF*").grid(row=0, column=0, sticky="e", padx=5, pady=5)
@@ -36,11 +93,12 @@ email_entry.grid(row=4, column=1)
 
 
 #botões
-tk.Button(janela,text="cadastrar",  width=15).grid(row=5, column=0, pady=10)
-tk.Button(janela,text="consultar",width=15).grid(row=5, column=1, pady=10)
-tk.Button(janela,text="Listar ",width=15).grid(row=5, column=2, pady=10)
+tk.Button(janela,text="cadastrar", command=cadastrar,  width=15).grid(row=5, column=0, pady=10)
+tk.Button(janela,text="consultar",command=consultar,width=15).grid(row=5, column=1, pady=10)
+tk.Button(janela,text="Listar ",command=listar,width=15).grid(row=5, column=2, pady=10)
+tk.Button(janela,text="Atualizar",width=15).grid(row=6,column=1, pady=10)
 
 criar_tabela()
 janela.title("alunos")
-janela.geometry("520x350")
+janela.geometry("")
 janela.mainloop()
