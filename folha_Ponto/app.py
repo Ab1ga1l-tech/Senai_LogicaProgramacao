@@ -1,7 +1,7 @@
 import tkinter as tk 
 from  datetime import datetime
 from tkinter import messagebox
-from  funçoes import*
+from folha_ponto_funções import*
 
 def cadastrar():
     cpf = cpf_entry.get()
