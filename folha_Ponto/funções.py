@@ -8,28 +8,26 @@ def criar_tabela():
     cur = con.cursor()
     cur.execute("""
         CREATE TABLE IF NOT EXISTS professores (
-            cpf TEXT PRIMARY KEY,
             nome TEXT NOT NULL,
             data TEXT NOT NULL,
             area text NOT NULL,
+            justificativa text 
                 
         )
     """)
     con.commit()
     con.close()
 
-def validar_cpf(cpf):
-    return cpf.isdigit() and len(cpf) == 11
 
 # Validação simples de e-mail
 
 # Inserção de aluno
-def inserir_aluno(cpf, nome, data, area):
+def inserir_aluno( nome, data, area , justificativa):
     try:
         con = sqlite3.connect("professores.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO professores (cpf, nome, data_nasc, serie, email) VALUES (?, ?, ?, ?, ?)",
-                    (cpf, nome, data_nasc, serie, email))
+        cur.execute("INSERT INTO professores (nome, data,area, justificativa) VALUES (?, ?, ?, ?, ?)",
+                    (nome, data , area ,justificativa))
         con.commit()
         con.close()
         return True
@@ -37,10 +35,10 @@ def inserir_aluno(cpf, nome, data, area):
         return False
 
 # Consulta aluno por CPF
-def consultar_aluno(cpf):
+def consultar_aluno(nome):
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM alunos WHERE cpf = ?", (cpf,))
+    cur.execute("SELECT * FROM professores WHERE cpf = ?", (nome,))
     aluno = cur.fetchone()
     con.close()
     return aluno
@@ -49,7 +47,7 @@ def consultar_aluno(cpf):
 def listar_todos():
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM alunos")
+    cur.execute("SELECT * FROM professores")
     lista = cur.fetchall()
     con.close()
     return lista
