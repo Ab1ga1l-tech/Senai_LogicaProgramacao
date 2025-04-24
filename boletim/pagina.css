@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    font-family: Arial, sans-serif;
+}
+#login {
+    background-color: white;
+    padding: 90px 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+#formLogin {
+    display: flex;
+    flex-direction: column;
+}
+#formLogin h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#formLogin label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#formLogin input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#formLogin button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color:#45a049 ;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#formLogin button:hover {
+    background-color:  #a6cfa7;
+}
+
+input,button{
+    padding: 8px;
+    margin-top: 10px;
+}
+h1{
+    text-align: 10px;
+    text-align: center;
+}
+.login{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#Cadastro{
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    padding: 100px 40px;
+}
