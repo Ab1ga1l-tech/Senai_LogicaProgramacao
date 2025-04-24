@@ -31,14 +31,25 @@ def inserir_aluno(nome, data, hora, area, tipo, justificativa):
         print("Erro ao inserir:", e)  # Vai exibir o erro no terminal
         return False
 
-
-def consultar_aluno(nome):
+def consultar_por_filtro(nome, data):
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM professores WHERE nome = ?", (nome,))
-    aluno = cur.fetchone()
+
+    query = "SELECT * FROM professores WHERE 1=1"
+    parametros = []
+
+    if nome:
+        query += " AND nome LIKE ?"
+        parametros.append(f"%{nome}%")
+    if data:
+        query += " AND data = ?"
+        parametros.append(data)
+
+    cur.execute(query, parametros)
+    resultado = cur.fetchall()
     con.close()
-    return aluno
+    return resultado
+
 
 def listar_todos():
     con = sqlite3.connect("professores.db")
