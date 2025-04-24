@@ -1,8 +1,5 @@
-#nome , dia, horário ,  ano 
 import sqlite3
-import re
 
-# Criação da tabela
 def criar_tabela():
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
@@ -10,40 +7,39 @@ def criar_tabela():
         CREATE TABLE IF NOT EXISTS professores (
             nome TEXT NOT NULL,
             data TEXT NOT NULL,
-            area text NOT NULL,
-            justificativa text 
-                
+            hora TEXT NOT NULL,
+            area TEXT NOT NULL,
+            tipo TEXT NOT NULL,
+            justificativa TEXT 
         )
     """)
     con.commit()
     con.close()
 
-
-# Validação simples de e-mail
-
-# Inserção de aluno
-def inserir_aluno( nome, data, area , justificativa):
+def inserir_aluno(nome, data, hora, area, tipo, justificativa):
     try:
         con = sqlite3.connect("professores.db")
         cur = con.cursor()
-        cur.execute("INSERT INTO professores (nome, data,area, justificativa) VALUES (?, ?, ?, ?, ?)",
-                    (nome, data , area ,justificativa))
+        cur.execute("""
+            INSERT INTO professores (nome, data, hora, area, tipo, justificativa)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (nome, data, hora, area, tipo, justificativa))
         con.commit()
         con.close()
         return True
-    except sqlite3.IntegrityError:
+    except Exception as e:
+        print("Erro ao inserir:", e)  # Vai exibir o erro no terminal
         return False
 
-# Consulta aluno por CPF
+
 def consultar_aluno(nome):
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
-    cur.execute("SELECT * FROM professores WHERE cpf = ?", (nome,))
+    cur.execute("SELECT * FROM professores WHERE nome = ?", (nome,))
     aluno = cur.fetchone()
     con.close()
     return aluno
 
-# Listar todos os alunos
 def listar_todos():
     con = sqlite3.connect("professores.db")
     cur = con.cursor()
