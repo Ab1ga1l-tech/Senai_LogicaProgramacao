@@ -1,0 +1,23 @@
+body {
+    background-color: #222;
+    color: #9467c7;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .clock-container h1 {
+    text-align: center;
+    font-size: 36px;
+    color: #b88af1;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px #5c3983;
+}
+
+  
+  #relogio {
+    font-size: 100px;
+    letter-spacing: 3px;
+  }
